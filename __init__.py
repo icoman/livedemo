@@ -57,9 +57,11 @@ def _(ws):
         def clock_thread(args):
             print('clock_thread({})'.format(args))
             ob.runUpdate = args
+            if not ob.runUpdate:
+                app.live.broadcast({'servertime': ''})
 
         def test_func(args):
-            print('test_func({})'.format(args))
+            print('test_func({}), type(args)={}'.format(args, type(args)))
 
         def thread1(ob, ws):
             # run thread while client is connected
