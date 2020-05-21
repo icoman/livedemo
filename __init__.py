@@ -54,16 +54,14 @@ def _(ws):
         ob = Container()
         ob.runUpdate = False
 
-        def f1():
-            print('Function f1')
-            ob.runUpdate = True
+        def clock_thread(args):
+            print('clock_thread({})'.format(args))
+            ob.runUpdate = args
 
-        def f2():
-            print('Function f2')
-            ob.runUpdate = False
-            app.live.broadcast({'servertime': ''})
+        def test_func(args):
+            print('test_func({})'.format(args))
 
-        def f3(ob, ws):
+        def thread1(ob, ws):
             # run thread while client is connected
             while ws in app.live.clients:
                 time.sleep(1)
@@ -71,11 +69,11 @@ def _(ws):
                     now = datetime.datetime.now()
                     hms = now.strftime('%H:%M:%S')
                     app.live.broadcast({'servertime': hms})
-            print('task ends')
+            print('thread1 ends')
 
-        app.live.add_task(f3, {'ob': ob, 'ws':ws})
-        app.live.register_func(ws, f1, 'enable_clock_thread')
-        app.live.register_func(ws, f2, 'disable_clock_thread')
+        app.live.register_func(ws, clock_thread, 'endis_clock_thread')
+        app.live.register_func(ws, test_func, 'test')
+        app.live.add_task(thread1, {'ob': ob, 'ws':ws})
     app.live.run(ws)
 
 

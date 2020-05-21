@@ -40,15 +40,22 @@ class MyAppModule(AppModule):
                         varname = term
                         str_list.append("wsGet('{}');".format(varname))
                     else:
-                        varname = term[:ix].strip()
-                        default = term[ix:].strip()
+                        varname = term[:ix]
+                        default = term[ix:]
                         str_list.append(
                             "wsInit('{0}', {1}); wsGet('{0}');".format(varname, default))
 
                 if tag.startswith("!"):
                     # function call
-                    funcname = tag[1:].strip()
-                    str_list.append("wsCall('{}')".format(funcname))
+                    term = tag[1:].strip()
+                    ix = term.find(' ')
+                    if ix == -1:
+                        funcname = term
+                        str_list.append("wsCall('{}', null)".format(funcname))
+                    else:
+                        funcname = term[:ix]
+                        args = term[ix:]
+                        str_list.append("wsCall('{}', {})".format(funcname, args))
 
                 if tag.startswith("@"):
                     # a js var

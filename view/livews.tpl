@@ -26,8 +26,8 @@
   function wsSendVars(ob) {
     ws.send(JSON.stringify({ type: "pub", data: ob }));
   }
-  function wsCall(name) {
-    ws.send(JSON.stringify({ type: "call", data: name }));
+  function wsCall(name, args) {
+    ws.send(JSON.stringify({ type: "call", data: name, args: args }));
   }
   function wsInit(name, value) {
     ws.send(JSON.stringify({ type: "init", data: name, value: value }));
@@ -47,9 +47,14 @@
     }
 
     ws = new WebSocket(getWebsocketUrl("{{ url }}"));
+    
     ws.onopen = function (evt) {
       $('#messages').append('<li>Connected to chat.</li>');
       if (typeof after_connected !== 'undefined') { after_connected(); }
+    }
+
+    ws.onclose = function (evt) {
+      $('#messages').append('<li>Disconnected from chat.</li>');
     }
 
     ws.onmessage = function (evt) {

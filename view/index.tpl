@@ -9,10 +9,12 @@
     <td>
       <h1><<@servertime>> cnt=<<@cnt>> <<@operation>> </h1>
 
-      <button class="btn btn-success" onclick="<<!enable_clock_thread>>">Enable Clock</button>
-      <button class="btn btn-warning" onclick="<<!disable_clock_thread>>">Disable Clock</button>
+      <button class="btn btn-success" onclick="<<!endis_clock_thread true>>">Enable Clock</button>
+      <button class="btn btn-warning" onclick="<<!endis_clock_thread false>>">Disable Clock</button>
       <button class="btn btn-primary" id="inc">+</button>
       <button class="btn btn-primary" id="dec">-</button>
+      <button class="btn btn-warning" onclick="<<!test 123>>">Test1</button>
+      <button class="btn btn-warning" onclick="<<!test {a:1,b:2,c:3}>>">Test2</button>
 
       <h3 class="pull-right"><<@servertime>></h3>
 

@@ -57,14 +57,14 @@ class LiveController(object):
 
             # expect json data to be a python dict
             msg = json.loads(data)
-            msg_type = msg.get('type')
-            data = msg.get('data')
+            msg_type = msg.get("type")
+            data = msg.get("data")
 
             if msg_type == "get":
                 self.broadcast({data: self.vars.get(data)})
 
             if msg_type == "init":
-                value = msg.get('value')
+                value = msg.get("value")
                 if not self.vars.get(data):
                     with self.lock:
                         self.vars[data] = value
@@ -76,12 +76,14 @@ class LiveController(object):
                 self.broadcast(data)
 
             if msg_type == "call":
+                args = msg.get("args")
+                print("call {}({})".format(data, args))
                 func = self.funcs.get(wsclient, {}).get(data)
                 if func:
                     #print('call', id(func))
-                    func()
+                    func(args)
                 else:
-                    print('No function to call')
+                    print("No function to call")
 
         # client disconnected
         with self.lock:
