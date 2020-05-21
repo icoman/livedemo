@@ -15,7 +15,6 @@
     pathArray = location.href.split("/");
     protocol = pathArray[0];
     host = pathArray[2];
-    console.log(protocol);
     if(protocol == 'http:')
        return `ws://${host}/{{ module_name }}/${url}`;
     else
