@@ -28,29 +28,27 @@ def _():
     """
     title = 'Websocket Live Demo'
     bs = app.get_beaker_session()
-    userid = int(bs.get('userid', 0))
+    #userid = int(bs.get('userid', 0))
     userfullname = bs.get('userfullname', 'Anonymous')
-    #now = datetime.datetime.now().strftime('%H:%M:%S')
-    return dict(title=title, userid=userid, userfullname=userfullname)
+    return dict(title=title, userfullname=userfullname)
 
 
 @app.get('/live', apply=[websocket])
 @app.auth('ws access')
 def _(ws):
-
+    """
+        The websocket function
+    """
     if ws is None:
         print('websocket is None')
         return
-
     app.live.add(ws)
-
-    class Container():
-        pass
-
     bs = app.get_beaker_session()
     userid = int(bs.get('userid', 0))
     if userid == 1:
         # user is admin
+        class Container():
+            pass
         ob = Container()
         ob.runUpdate = False
 
@@ -75,7 +73,7 @@ def _(ws):
 
         app.live.register_func(ws, clock_thread, 'endis_clock_thread')
         app.live.register_func(ws, test_func, 'test')
-        app.live.add_task(thread1, {'ob': ob, 'ws':ws})
+        app.live.add_task(thread1, {'ob': ob, 'ws': ws})
     app.live.run(ws)
 
 

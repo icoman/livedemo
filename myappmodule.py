@@ -8,6 +8,10 @@ from .livecontroller import LiveController
 
 
 class MyAppModule(AppModule):
+    """
+        This webapp module add support for << and >> tags
+        and implements liveview decorator
+    """
 
     def __init__(self, catchall=True, autojson=True):
         super(MyAppModule, self).__init__(catchall, autojson)

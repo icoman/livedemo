@@ -5,6 +5,10 @@ import bottle
 
 
 class LiveController(object):
+    """
+        Track websocket clients
+        and deal with communication
+    """
 
     def __init__(self, app):
         self.app = app
