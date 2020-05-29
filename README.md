@@ -12,11 +12,11 @@ The [bottlepy](https://bottlepy.org/) template **index.tpl** (from folder **view
 
 * All references to << @variable >> are replaced with an html span tag with unique generated id
 
-* All references to << ?variable >> are replaced with javascript call **wsGet('variable')**
+* All references to << ?variable >> are replaced with javascript function call **wsGet('variable')**
 
-* All references to << ?variable initial_value >> are replaced with javascript calls **wsInit('variable', initial_value)** followed by **wsGet('variable')**
+* All references to << ?variable initial_value >> are replaced with javascript function call **wsInit('variable', initial_value)** followed by **wsGet('variable')**
 
-* All references to << !server_function one_argument >> are replaced with javascript call **wsCall('server_function', one_argument)**
+* All references to << !server_function one_argument >> are replaced with javascript function call **wsCall('server_function', one_argument)**
 
 [The web server](https://github.com/icoman/AppServer) requires [GeventWebSocketServer](https://pypi.org/project/gevent-websocket/) (**pip install gevent-websocket**) and the extension bottle-websocket (**pip install bottle-websocket**).
 

@@ -13,8 +13,9 @@
       <button class="btn btn-warning" onclick="<<!endis_clock_thread false>>">Disable Clock</button>
       <button class="btn btn-primary" id="inc">+</button>
       <button class="btn btn-primary" id="dec">-</button>
-      <button class="btn btn-warning" onclick="<<!test 123>>">Test1</button>
-      <button class="btn btn-warning" onclick="<<!test {a:1,b:2,c:3}>>">Test2</button>
+      <button class="btn btn-warning" onclick="<< !test >>">Test1</button>
+      <button class="btn btn-warning" onclick="<< !test 123 >>">Test2</button>
+      <button class="btn btn-warning" onclick="<< !test {a:1,b:2,c:3} >>">Test3</button>
 
       <h3 class="pull-right"><<@servertime>></h3>
 
