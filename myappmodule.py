@@ -26,7 +26,7 @@ class MyAppModule(AppModule):
         """
         vars_map = {}
         str_list = []
-        regex = r"<<([^<>]+)>>"
+        regex = r'<<([^<>]+)>>'
         matches = re.finditer(regex, body, re.MULTILINE)
         pos = 0
         cntid = 0
@@ -36,7 +36,7 @@ class MyAppModule(AppModule):
             for groupNum in range(len(m.groups())):
                 tag = m.group(groupNum+1).strip()
 
-                if tag.startswith("?"):
+                if tag.startswith('?'):
                     term = tag[1:].strip()
                     # get variable value from server
                     ix = term.find(' ')
@@ -45,11 +45,11 @@ class MyAppModule(AppModule):
                         str_list.append("wsGet('{}');".format(varname))
                     else:
                         varname = term[:ix]
-                        default = term[ix:]
+                        default = term[ix:].strip()
                         str_list.append(
                             "wsInit('{0}', {1}); wsGet('{0}');".format(varname, default))
 
-                if tag.startswith("!"):
+                if tag.startswith('!'):
                     # function call
                     term = tag[1:].strip()
                     ix = term.find(' ')
@@ -58,10 +58,10 @@ class MyAppModule(AppModule):
                         str_list.append("wsCall('{}', null)".format(funcname))
                     else:
                         funcname = term[:ix]
-                        args = term[ix:]
+                        args = term[ix:].strip()
                         str_list.append("wsCall('{}', {})".format(funcname, args))
 
-                if tag.startswith("@"):
+                if tag.startswith('@'):
                     # a js var
                     varname = tag[1:].strip()
                     L = vars_map.get(varname, [])
@@ -83,7 +83,7 @@ class MyAppModule(AppModule):
                 # cached in AppModule
                 tpltext = self._get_template(template_name)
                 if self.module_config.get('module disabled'):
-                    return self.err_msg("Error", "Module disabled by admin")
+                    return self.err_msg('Error', 'Module disabled by admin')
                 else:
                     result = func(*args, **kwargs)
                     if isinstance(result, (dict,)):
